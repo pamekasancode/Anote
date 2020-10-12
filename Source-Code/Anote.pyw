@@ -8,15 +8,13 @@
 from tkinter import filedialog as fdial, ttk, messagebox as msgbox
 import tkinter.font as tkf
 from tkinter import *
-import os, sys, time, sqlite3
+import os, sys, time
 
 class UI:
 	def __init__(self):
 		self.root = Tk()
-		self.database_name = "AF_dat.db"		# not build yet :v
 		self.default_geometry = "500x530"
-		if not self.load_current_size():
-			self.root.geometry(self.default_geometry)	# this instance will be set if there is no user configuration yet
+		self.root.geometry(self.default_geometry)	
 		self.root.iconbitmap("note.ico")
 		self.initialized = False
 		self.file_saved = False
@@ -35,37 +33,6 @@ class UI:
 		self._default_program_name = "Alvin Fastnote"
 		self.cur_row = 0
 		self.cur_col = 0	
-
-	def load_current_size(self):
-		if not os.path.isfile(self.database_name):
-			return False
-
-		con = sqlite3.connect(self.database_name)
-		cur = con.cursor()
-		return cur.execute("SELECT * FROM configuration").fetchall()
-
-	def make_database(self, *conf_to_save):
-		if os.path.isfile(self.database_name):
-			return False
-
-		con = sqlite3.connect(self.database_name)
-		cur = con.cursor()
-
-		cur.execute(f"CREATE TABLE configuration {conf_to_save}")
-		con.commit()
-		con.close()
-
-	def save_current(*conf_to_save):
-		if not os.path.isfile(self.database_name):
-			self.make_database()
-			return False
-
-		con = sqlite3.connect(self.database_name)
-		cur = con.cursor()
-
-		cur.execute(f"INSERT INTO configuration VALUES {conf_to_save}")
-		con.commit()
-		con.close()
 
 	def change_title(self, args):
 		self.root.title(args + " - " + self._default_program_name)
@@ -292,14 +259,12 @@ class UI:
 						self.save_as()
 
 					elif respond == False:
-						self.save_current()
 						self.root.destroy()
 
 					elif respond == None:
 						pass
 
 		else:
-			self.save_current()
 			self.root.destroy()
 
 	def Nodes(self):
