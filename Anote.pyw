@@ -1,8 +1,8 @@
 ####---------------------------------------------------------------------######
-#### 								Notepad clone	   	   	   				  +	
-####     		   			Created By ALvin Setya Pranata                    +
-####		The Program is open source and free so everyone can develop it    +
-#-----------------------------------------------------------------------------+
+#### 			     Notepad clone	   	   	              +  				  +	
+####     		Created By PamekasanCode                              +
+####	The Program is open source and free so everyone can develop it        +
+####--------------------------------------------------------------------------+
 
 
 from tkinter import filedialog as fdial, ttk, messagebox as msgbox
